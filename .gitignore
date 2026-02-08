@@ -1,0 +1,7 @@
+/_build
+/.elixir_ls
+/deps
+/old
+/priv/static
+AGENTS.md
+.env
