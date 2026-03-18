@@ -1,18 +1,55 @@
 # Investment Wallet Rebalancer (Elixir)
 
-This project implements a **simple investment wallet rebalancing engine** written in pure Elixir.
+## Overview
 
-Given:
-- A wallet with currently owned stocks
-- A desired portfolio allocation (percentages)
-- A known price list for available stocks
+This project implements a **portfolio rebalancing engine** in pure Elixir.
 
-The system calculates:
-- Which stocks should be **sold**
-- Which stocks should be **bought**
-- How many units are required to move the wallet as close as possible to the desired allocation.
+Given a wallet with current holdings and a target allocation, the system determines:
 
-This project focuses on **domain logic**, correctness, and testability rather than external integrations.
+* Which assets should be **sold**
+* Which assets should be **bought**
+* The number of units required to rebalance the portfolio as close as possible to the desired distribution
+
+This solution focuses on **correctness, determinism, and domain-driven logic**, rather than external integrations.
+
+---
+
+## 🚀 Quick Example
+
+**Input**
+
+* Current holdings:
+
+  * AAPL x2
+  * META x1
+* Target allocation:
+
+  * AAPL 20%
+  * META 30%
+  * NFLX 50%
+
+**Output**
+
+* Sell:
+
+  * AAPL x4
+  * META x1
+* Buy:
+
+  * NFLX x10
+
+---
+
+## Why This Project Matters
+
+Portfolio rebalancing is a **non-trivial financial problem** that involves:
+
+* Maintaining allocation constraints (must sum to 100%)
+* Handling rounding (integer units only)
+* Avoiding floating-point inaccuracies
+* Producing deterministic and testable results
+
+This project demonstrates how to model and solve this problem using functional programming principles.
 
 ---
 
@@ -21,9 +58,9 @@ This project focuses on **domain logic**, correctness, and testability rather th
 - Elixir 1.16+
 - Erlang/OTP 26+
 
-The project relies only on standard library features and does not require
-any external services.
+No external dependencies are required.
 
+---
 
 ## Features
 
@@ -192,8 +229,17 @@ Covered scenarios:
 - Invalid allocation sum
 - Successful rebalance with buy/sell instructions
 
+
 ---
 
+## Key Technical Highlights
+
+* Deterministic financial algorithm
+* Integer-based calculations (no floating point errors)
+* Functional and testable domain logic
+* Clear separation of domain and computation
+
+---
 ## Design Decisions & Trade-offs
 
 ### Integer-based money
@@ -214,8 +260,8 @@ Designed for simplicity and deterministic testing.
 - No transaction fees or taxes
 - No cash balance handling
 - No fractional shares
-- Prices are static
-- Assets not in the desired allocation are not automatically forced to 0%
+- Static prices
+- Assets outside target allocation are not forced to 0%
 
 ---
 
@@ -226,13 +272,24 @@ Designed for simplicity and deterministic testing.
 - Support for cash positions
 - Support for fractional shares
 - Portfolio universe = assigned ∪ wish stocks
+- Portfolio analytics (returns, volatility)
 - Phoenix API or LiveView UI
 
 ---
 
-## LLM Usage Disclosure
+## Notes
+Documentation structure was assisted by an LLM.
+All core logic, design decisions, and implementation were developed by the author.
 
-This project was developed with assistance from a Large Language Model (LLM) for:
-- Documentation structuring
+---
 
-Final design and implementation decisions were made by the author.
+## About the Exercise
+
+This project was developed as part of a technical assessment.
+
+The goal was not only to solve the problem, but to demonstrate:
+
+* Code quality
+* Problem-solving approach
+* Clarity of thought
+* Attention to detail
